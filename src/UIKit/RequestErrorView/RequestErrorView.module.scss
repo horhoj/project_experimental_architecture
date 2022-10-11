@@ -1,0 +1,19 @@
+.wrap {
+  border-radius: 10px;
+  background-color: palevioletred;
+  padding: 20px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.errorTitle {
+  font-weight: 500;
+}
+
+
+.pre {
+  overflow: auto;
+  padding: 10px;
+}

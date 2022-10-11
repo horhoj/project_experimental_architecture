@@ -1,3 +1,4 @@
+import { current } from '@reduxjs/toolkit';
 import { delay } from '../utils/delay';
 import { getUUID } from '../utils/getUUID';
 
@@ -25,6 +26,11 @@ const createDefaultTodoListData = (): void => {
   }
 };
 
+const saveTodoListData = (todoListData: TodoItem[]) => {
+  const todoListDataStr = JSON.stringify(todoListData);
+  localStorage.setItem(TODO_LIST_DATA_LS_KEY, todoListDataStr);
+};
+
 const bootstrap = async () => {
   await delay(DELAY);
   createDefaultTodoListData();
@@ -46,4 +52,48 @@ export const fetchTodoList = async (): Promise<TodoItem[]> => {
   const todoList = getTodoListData();
 
   return Promise.resolve(todoList);
+};
+
+interface FetchTodoItemPayload {
+  id: string;
+}
+
+export const fetchTodoItem = async ({
+  id,
+}: FetchTodoItemPayload): Promise<TodoItem> => {
+  await bootstrap();
+  const todoList = getTodoListData();
+  const todoItem: TodoItem | undefined = todoList.find(
+    (todoListItem) => todoListItem.id === id,
+  );
+
+  if (!todoItem) {
+    return Promise.reject('404 notFound!');
+  }
+
+  return todoItem;
+};
+
+interface PatchTodoItemPayload {
+  todoItem: TodoItem;
+}
+
+export const patchTodoItem = async ({
+  todoItem,
+}: PatchTodoItemPayload): Promise<void> => {
+  await bootstrap();
+  const todoList = getTodoListData();
+
+  const idx = todoList.findIndex(
+    (currentTodoItem) => currentTodoItem.id === todoItem.id,
+  );
+  if (idx === -1) {
+    return Promise.reject('404 notFound!');
+  }
+
+  todoList[idx] = todoItem;
+
+  saveTodoListData(todoList);
+
+  return Promise.resolve();
 };

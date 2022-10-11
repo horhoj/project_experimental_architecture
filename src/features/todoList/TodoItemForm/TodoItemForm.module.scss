@@ -1,0 +1,21 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.controlPanelWrap {
+  display: flex;
+  gap: 10px;
+}
+
+.msgError {
+  color: #990000;
+  font-size: 80%;
+}
