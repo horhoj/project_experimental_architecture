@@ -1,0 +1,12 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.todoList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

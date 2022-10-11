@@ -1,11 +1,15 @@
 import React, { FC } from 'react';
+import { todoListSlice } from '../../features/todoList/todoListSlice';
+import { useAppSelector } from '../../store/hooks';
 
 import styles from './Spinner.module.scss';
 
 export const Spinner: FC = () => {
-  const postsSliceIsLoading = false;
+  const todoListSliceIsLoading = useAppSelector(
+    todoListSlice.selectors.isLoading,
+  );
 
-  const isLoading = postsSliceIsLoading;
+  const isLoading = todoListSliceIsLoading;
 
   return isLoading ? <div className={styles.Spinner} /> : null;
 };
