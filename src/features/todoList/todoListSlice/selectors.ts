@@ -4,7 +4,8 @@ import { RequestSliceStateProperty, RootState } from '../../../store/types';
 export const isLoading = (state: RootState): boolean =>
   state.todoList.fetchTodoListRequest.isLoading ||
   state.todoList.fetchTodoItemRequest.isLoading ||
-  state.todoList.patchTodoListRequest.isLoading;
+  state.todoList.patchTodoItemRequest.isLoading ||
+  state.todoList.addTodoItemRequest.isLoading;
 
 export const getFetchTodoListRequest = (
   state: RootState,
@@ -16,4 +17,8 @@ export const getFetchTodoItemRequest = (
 
 export const getPatchTodoItemRequest = (
   state: RootState,
-): RequestSliceStateProperty<unknown> => state.todoList.patchTodoListRequest;
+): RequestSliceStateProperty<unknown> => state.todoList.patchTodoItemRequest;
+
+export const getAddTodoItemRequest = (
+  state: RootState,
+): RequestSliceStateProperty<unknown> => state.todoList.addTodoItemRequest;

@@ -11,13 +11,15 @@ import * as thunks from './thunks';
 interface InitialState {
   fetchTodoListRequest: RequestSliceStateProperty<TodoItem[]>;
   fetchTodoItemRequest: RequestSliceStateProperty<TodoItem>;
-  patchTodoListRequest: RequestSliceStateProperty<unknown>;
+  patchTodoItemRequest: RequestSliceStateProperty<unknown>;
+  addTodoItemRequest: RequestSliceStateProperty<unknown>;
 }
 
 const initialState: InitialState = {
   fetchTodoListRequest: makeRequestSliceStateProperty<TodoItem[]>(),
   fetchTodoItemRequest: makeRequestSliceStateProperty<TodoItem>(),
-  patchTodoListRequest: makeRequestSliceStateProperty<unknown>(),
+  patchTodoItemRequest: makeRequestSliceStateProperty<unknown>(),
+  addTodoItemRequest: makeRequestSliceStateProperty<unknown>(),
 };
 
 export const { actions, reducer } = createSlice({
@@ -29,8 +31,8 @@ export const { actions, reducer } = createSlice({
       state.fetchTodoItemRequest.error = null;
     },
     patchTodoItemRequestClear: (state) => {
-      state.patchTodoListRequest.data = null;
-      state.patchTodoListRequest.error = null;
+      state.patchTodoItemRequest.data = null;
+      state.patchTodoItemRequest.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -47,7 +49,12 @@ export const { actions, reducer } = createSlice({
     makeRequestCaseToBuilder<InitialState>(
       builder,
       thunks.patchTodoItemThunk,
-      'patchTodoListRequest',
+      'patchTodoItemRequest',
+    );
+    makeRequestCaseToBuilder<InitialState>(
+      builder,
+      thunks.addTodoItemThunk,
+      'addTodoItemRequest',
     );
   },
 });

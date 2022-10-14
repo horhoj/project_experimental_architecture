@@ -1,5 +1,4 @@
-import { TodoItem } from '../../../api/todoList';
-import { TodoItemData } from '../TodoItemForm/types';
+import { TodoItem, TodoItemData } from '../../../api/todoList';
 
 export const getTodoItemData = (
   todoItem: TodoItem | null,

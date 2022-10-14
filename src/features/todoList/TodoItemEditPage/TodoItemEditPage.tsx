@@ -3,10 +3,9 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { RequestErrorView } from '../../../UIKit/RequestErrorView';
 import { todoListSlice } from '../todoListSlice';
 import { TodoItemForm } from '../TodoItemForm';
-import { TodoItemData } from '../TodoItemForm/types';
 import { getRoutePath } from '../../../router';
 import { appSlice } from '../../../store/app';
-import { TodoItem } from '../../../api/todoList';
+import { TodoItem, TodoItemData } from '../../../api/todoList';
 import styles from './TodoItemEditPage.module.scss';
 import * as helpers from './helpers';
 

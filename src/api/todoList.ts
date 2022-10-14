@@ -1,14 +1,16 @@
-import { current } from '@reduxjs/toolkit';
 import { delay } from '../utils/delay';
 import { getUUID } from '../utils/getUUID';
 
 const TODO_LIST_DATA_LS_KEY = 'TODO_LIST_DATA_LS_KEY';
 const DELAY = 300;
 
-export interface TodoItem {
-  id: string;
+export interface TodoItemData {
   title: string;
   body: string;
+}
+
+export interface TodoItem extends TodoItemData {
+  id: string;
 }
 
 const createDefaultTodoListData = (): void => {
@@ -96,4 +98,20 @@ export const patchTodoItem = async ({
   saveTodoListData(todoList);
 
   return Promise.resolve();
+};
+
+export interface AddTodoItemPayload {
+  todoItemData: TodoItemData;
+}
+
+export const addTodoItem = async ({
+  todoItemData,
+}: AddTodoItemPayload): Promise<string> => {
+  await bootstrap();
+  const todoList = getTodoListData();
+  const id: string = getUUID();
+  const todoItem: TodoItem = { id, ...todoItemData };
+  todoList.unshift(todoItem);
+  saveTodoListData(todoList);
+  return Promise.resolve(id);
 };

@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { getRoutePath } from '../../../router';
 import { appSlice } from '../../../store/app';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { Button } from '../../../UIKit/Button';
 import { todoListSlice } from '../todoListSlice';
 import { TodoListItem } from './TodoListItem';
 import styles from './TodoListPage.module.scss';
@@ -16,13 +17,21 @@ export const TodoListPage: FC = () => {
   );
 
   const handleTodoItemEdit = (id: string) => {
-    const path = getRoutePath('todoItem', id);
+    const path = getRoutePath('todoItemEdit', id);
+    dispatch(appSlice.actions.redirect(path));
+  };
+
+  const handleTodoItemAdd = () => {
+    const path = getRoutePath('todoItemAdd');
     dispatch(appSlice.actions.redirect(path));
   };
 
   return (
     <div className={styles.wrap}>
       <div>TodoListPage</div>
+      <div>
+        <Button onClick={handleTodoItemAdd}>Add</Button>
+      </div>
       <ul className={styles.todoList}>
         {fetchTodoListRequest.data &&
           fetchTodoListRequest.data.map((todoItem, index) => (

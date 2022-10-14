@@ -1,11 +1,11 @@
 import { useFormik } from 'formik';
 import { FC } from 'react';
 import * as yup from 'yup';
+import { TodoItemData } from '../../../api/todoList';
 import { Button } from '../../../UIKit/Button';
 import { Input } from '../../../UIKit/Input';
 import { TextArea } from '../../../UIKit/TextArea';
 import styles from './TodoItemForm.module.scss';
-import { TodoItemData } from './types';
 
 interface TodoItemFormProps {
   todoItemData: TodoItemData;
