@@ -13,6 +13,7 @@ interface InitialState {
   fetchTodoItemRequest: RequestSliceStateProperty<TodoItem>;
   patchTodoItemRequest: RequestSliceStateProperty<unknown>;
   addTodoItemRequest: RequestSliceStateProperty<unknown>;
+  deleteTodoItemRequest: RequestSliceStateProperty<unknown>;
 }
 
 const initialState: InitialState = {
@@ -20,6 +21,7 @@ const initialState: InitialState = {
   fetchTodoItemRequest: makeRequestSliceStateProperty<TodoItem>(),
   patchTodoItemRequest: makeRequestSliceStateProperty<unknown>(),
   addTodoItemRequest: makeRequestSliceStateProperty<unknown>(),
+  deleteTodoItemRequest: makeRequestSliceStateProperty<unknown>(),
 };
 
 export const { actions, reducer } = createSlice({
@@ -38,7 +40,7 @@ export const { actions, reducer } = createSlice({
   extraReducers: (builder) => {
     makeRequestCaseToBuilder<InitialState>(
       builder,
-      thunks.fetchTodoListThunks,
+      thunks.fetchTodoListThunk,
       'fetchTodoListRequest',
     );
     makeRequestCaseToBuilder<InitialState>(
@@ -55,6 +57,11 @@ export const { actions, reducer } = createSlice({
       builder,
       thunks.addTodoItemThunk,
       'addTodoItemRequest',
+    );
+    makeRequestCaseToBuilder<InitialState>(
+      builder,
+      thunks.deleteTodoItemThunk,
+      'deleteTodoItemRequest',
     );
   },
 });

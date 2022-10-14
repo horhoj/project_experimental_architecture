@@ -16,6 +16,10 @@ export const TodoListPage: FC = () => {
     todoListSlice.selectors.getFetchTodoListRequest,
   );
 
+  const deleteTodoListRequest = useAppSelector(
+    todoListSlice.selectors.getDeleteTodoItemRequest,
+  );
+
   const handleTodoItemEdit = (id: string) => {
     const path = getRoutePath('todoItemEdit', id);
     dispatch(appSlice.actions.redirect(path));
@@ -26,9 +30,17 @@ export const TodoListPage: FC = () => {
     dispatch(appSlice.actions.redirect(path));
   };
 
+  const handleTodoItemDelete = (id: string) => {
+    if (!confirm('Удалить?')) {
+      return;
+    }
+    dispatch(todoListSlice.thunks.deleteTodoItemThunk({ id }));
+  };
+
   return (
     <div className={styles.wrap}>
       <div>TodoListPage</div>
+
       <div>
         <Button onClick={handleTodoItemAdd}>Add</Button>
       </div>
@@ -40,6 +52,7 @@ export const TodoListPage: FC = () => {
               todoItem={todoItem}
               index={index + 1}
               onEdit={() => handleTodoItemEdit(todoItem.id)}
+              onDelete={() => handleTodoItemDelete(todoItem.id)}
             />
           ))}
       </ul>

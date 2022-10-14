@@ -100,7 +100,7 @@ export const patchTodoItem = async ({
   return Promise.resolve();
 };
 
-export interface AddTodoItemPayload {
+interface AddTodoItemPayload {
   todoItemData: TodoItemData;
 }
 
@@ -114,4 +114,22 @@ export const addTodoItem = async ({
   todoList.unshift(todoItem);
   saveTodoListData(todoList);
   return Promise.resolve(id);
+};
+
+interface DeleteTodoItemPayload {
+  id: string;
+}
+
+export const deleteTodoItem = async ({
+  id,
+}: DeleteTodoItemPayload): Promise<void> => {
+  await bootstrap();
+  const todoList = getTodoListData();
+  const newTodoList = todoList.filter(
+    (currentTodoItem) => currentTodoItem.id !== id,
+  );
+
+  saveTodoListData(newTodoList);
+
+  return Promise.resolve();
 };

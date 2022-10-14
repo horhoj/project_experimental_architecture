@@ -7,7 +7,7 @@ export const useTodoListPage = (): void => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(todoListSlice.thunks.fetchTodoListThunks());
+    dispatch(todoListSlice.thunks.fetchTodoListThunk());
   }, []);
 };
 

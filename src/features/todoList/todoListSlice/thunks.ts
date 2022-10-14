@@ -5,7 +5,7 @@ import { getRoutePath } from '../../../router';
 import { appSlice } from '../../../store/app';
 import { SLICE_NAME } from './types';
 
-export const fetchTodoListThunks = createAsyncThunk(
+export const fetchTodoListThunk = createAsyncThunk(
   `${SLICE_NAME}/fetchTodoListThunks`,
   async () => {
     const response = await api.todoList.fetchTodoList();
@@ -48,5 +48,17 @@ export const addTodoItemThunk = createAsyncThunk(
     await api.todoList.addTodoItem({ todoItemData });
     const path = getRoutePath('todoList');
     dispatch(appSlice.actions.redirect(path));
+  },
+);
+
+interface DeleteTodoItemThunkPayload {
+  id: string;
+}
+
+export const deleteTodoItemThunk = createAsyncThunk(
+  `${SLICE_NAME}/deleteTodoItemThunk`,
+  async ({ id }: DeleteTodoItemThunkPayload, { dispatch }) => {
+    await api.todoList.deleteTodoItem({ id });
+    dispatch(fetchTodoListThunk());
   },
 );

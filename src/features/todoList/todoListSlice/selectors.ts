@@ -5,7 +5,8 @@ export const isLoading = (state: RootState): boolean =>
   state.todoList.fetchTodoListRequest.isLoading ||
   state.todoList.fetchTodoItemRequest.isLoading ||
   state.todoList.patchTodoItemRequest.isLoading ||
-  state.todoList.addTodoItemRequest.isLoading;
+  state.todoList.addTodoItemRequest.isLoading ||
+  state.todoList.deleteTodoItemRequest.isLoading;
 
 export const getFetchTodoListRequest = (
   state: RootState,
@@ -22,3 +23,7 @@ export const getPatchTodoItemRequest = (
 export const getAddTodoItemRequest = (
   state: RootState,
 ): RequestSliceStateProperty<unknown> => state.todoList.addTodoItemRequest;
+
+export const getDeleteTodoItemRequest = (
+  state: RootState,
+): RequestSliceStateProperty<unknown> => state.todoList.deleteTodoItemRequest;
