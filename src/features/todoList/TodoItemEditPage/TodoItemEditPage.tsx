@@ -28,7 +28,7 @@ export const TodoItemPage: FC = () => {
     if (!id) {
       return;
     }
-    const todoItem: TodoItem = { ...values, id };
+    const todoItem: TodoItem = { ...values, id, timestamp: 0 };
     dispatch(todoListSlice.thunks.patchTodoItemThunk({ todoItem }));
   };
 
@@ -55,11 +55,18 @@ export const TodoItemPage: FC = () => {
       )}
 
       {fetchTodoItemRequest.data && todoItemData && (
-        <TodoItemForm
-          todoItemData={todoItemData}
-          onSubmit={handleSubmit}
-          onCancel={handleCancel}
-        />
+        <>
+          <div className={styles.timeStamp}>
+            {helpers.timeStampToLocalString(
+              fetchTodoItemRequest.data.timestamp,
+            )}
+          </div>
+          <TodoItemForm
+            todoItemData={todoItemData}
+            onSubmit={handleSubmit}
+            onCancel={handleCancel}
+          />
+        </>
       )}
     </div>
   );

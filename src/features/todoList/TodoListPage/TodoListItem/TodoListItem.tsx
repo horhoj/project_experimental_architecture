@@ -16,13 +16,16 @@ export const TodoListItem: FC<TodoListItemProps> = ({
   onEdit,
   onDelete,
 }) => {
+  const time = new Date(todoItem.timestamp).toLocaleString();
+
   return (
     <li className={styles.wrap}>
-      <h3 className={styles.title}>{`${index}. ${todoItem.title} `}</h3>
       <div className={styles.buttonList}>
         <Button onClick={onEdit}>edit</Button>
         <Button onClick={onDelete}>delete</Button>
       </div>
+      <h3 className={styles.title}>{`${index}. ${todoItem.title} `}</h3>
+      <div className={styles.timestamp}>{time}</div>
       <div>{todoItem.body}</div>
     </li>
   );

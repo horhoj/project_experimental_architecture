@@ -14,3 +14,6 @@ export const getTodoItemData = (
 
   return null;
 };
+
+export const timeStampToLocalString = (timestamp: number): string =>
+  new Date(timestamp).toLocaleString();

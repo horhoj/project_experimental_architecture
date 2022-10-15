@@ -1,4 +1,5 @@
 import { delay } from '../utils/delay';
+import { getCurrentTimestamp } from '../utils/getCurrentTimestamp';
 import { getUUID } from '../utils/getUUID';
 
 const TODO_LIST_DATA_LS_KEY = 'TODO_LIST_DATA_LS_KEY';
@@ -10,16 +11,18 @@ export interface TodoItemData {
 }
 
 export interface TodoItem extends TodoItemData {
+  timestamp: number;
   id: string;
 }
 
 const createDefaultTodoListData = (): void => {
   const currentTodoDataStringify = localStorage.getItem(TODO_LIST_DATA_LS_KEY);
   if (currentTodoDataStringify === null) {
+    const timestamp = getCurrentTimestamp();
     const defaultTodoListData: TodoItem[] = [
-      { id: getUUID(), title: 'title 01', body: 'body 01' },
-      { id: getUUID(), title: 'title 02', body: 'body 02' },
-      { id: getUUID(), title: 'title 03', body: 'body 03' },
+      { id: getUUID(), title: 'title 01', body: 'body 01', timestamp },
+      { id: getUUID(), title: 'title 02', body: 'body 02', timestamp },
+      { id: getUUID(), title: 'title 03', body: 'body 03', timestamp },
     ];
 
     const defaultTodoListDataStringify = JSON.stringify(defaultTodoListData);
@@ -93,7 +96,8 @@ export const patchTodoItem = async ({
     return Promise.reject('404 notFound!');
   }
 
-  todoList[idx] = todoItem;
+  const timestamp = getCurrentTimestamp();
+  todoList[idx] = { ...todoItem, timestamp };
 
   saveTodoListData(todoList);
 
@@ -110,7 +114,8 @@ export const addTodoItem = async ({
   await bootstrap();
   const todoList = getTodoListData();
   const id: string = getUUID();
-  const todoItem: TodoItem = { id, ...todoItemData };
+  const timestamp = getCurrentTimestamp();
+  const todoItem: TodoItem = { id, ...todoItemData, timestamp };
   todoList.unshift(todoItem);
   saveTodoListData(todoList);
   return Promise.resolve(id);
